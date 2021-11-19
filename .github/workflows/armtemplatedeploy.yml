@@ -3,9 +3,6 @@
 name: armTemplateDeployment
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -14,36 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses : actions/checkout@v2
-      
+      - uses : actions/checkout@v2   
+
       - name : azure login
-      - uses : azure/login@v1
-        with : 
-          creds : ${{secret.Azure_Credentials}}
-
-      - name: Deploy Azure Resource Group 
-      - uses: Azure/arm-deploy@v1
+        uses : Azure/login@V1
         with:
-          scope: Subscription
-          SubscriptionID : b69c2a11-bd8a-4349-b9d9-1c55bd839199
-          region: "west us 2"
-          template: ./arm-templates/resourcegroup.json
-          parameters:   
-            location = "west us 2"
-            resourcegroupname = rg-githubaction
-          deploymentname: rg-githubaction
-
-      - name: Deploy Azure Resource Group 
-      - uses: Azure/arm-deploy@v1
-        id: storageaccountdeploy
-        with:
-          scope: Subscription
-          SubscriptionID : b69c2a11-bd8a-4349-b9d9-1c55bd839199
-          region: "west us 2"
-          template: ./arm-templates/storageaccount.json
-          parameters: ./arm-templates/storageaccount.parameters.json
-            #location = west us 2
-            #resourcegroupname = rg-githubaction
-          deploymentmode: incremental
-
-      - run: echo ${{steps.storageaccountdeploy.outputs}}
+          creds: ${{ secrets.AZURE_CREDENTIALS}}
