@@ -29,3 +29,14 @@ jobs:
           region: West US 2
           template: ./arm-templates/resourcegroup.json
           deploymentname: rg-githubaction
+
+
+      - name: Deploy storageaccount globostorage
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourcegroupname: rg-githubaction
+          subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
+          template: ./arm-templates/storageaccount.json
+          parameters: ./arm-templates/storageaccount.parameters.json
+          deploymentmode: incremental
