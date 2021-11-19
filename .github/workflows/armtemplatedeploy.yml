@@ -28,10 +28,14 @@ jobs:
           subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
           region: West US 2
           template: ./arm-templates/resourcegroup.json
+          parameters: 
+            resourcegroupname = rg-githubactions
+            location = "West US 2"
           deploymentname: rg-githubaction
 
 
       - name: Deploy storageaccount globostorage
+        id: storageaccountdeploy
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
@@ -42,3 +46,4 @@ jobs:
             storageaccountname=m2storageaccot1983
             location="East US 2"
           deploymentmode: incremental
+      - run: echo ${{steps.storageaccountdeploy.outputs.BlobURI}}
