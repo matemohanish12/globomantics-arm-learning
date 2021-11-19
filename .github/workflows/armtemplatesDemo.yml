@@ -1,0 +1,34 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+on:
+  push:
+    branches: 
+      - main
+  workflow_dispatch:      
+
+jobs:
+  armDeploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses : actions/checkout@v2
+      
+      - name : azure login
+      - uses : azure/login@v1
+        with : 
+          creds : ${{secret.Azure_Credentials}}
+
+      - name: Deploy Azure Resource Group 
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: Subscription
+          SubscriptionID : Get-Sub
+          region: "west us 2"
+          template: ./arm-templates/resourcegroup.json
+          parameters:   
+            location = "west us 2"
+            resourcegroupname = rg-githubaction
+          deploymentname: rg-githubaction
+
+ 
