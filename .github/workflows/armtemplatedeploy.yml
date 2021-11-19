@@ -1,27 +1,50 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: armTemplateDeployment
 
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  armDeploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
       - uses : actions/checkout@v2
       
       - name : azure login
-      - uses : actions/login@va
+      - uses : azure/login@v1
         with : 
           creds : ${{secret.Azure_Credentials}}
-            
-      - name: Azure CLI Action
-        uses: Azure/cli@v1
 
+      - name: Deploy Azure Resource Group 
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: Subscription
+          SubscriptionID : Get-Sub
+          region: west us 2
+          template: ./arm-templates/resourcegroup.json
+          parameters:   
+            location = west us 2
+            resourcegroupname = rg-githubaction
+          deploymentname: rg-githubaction
+
+      - name: Deploy Azure Resource Group 
+        uses: Azure/arm-deploy@v1
+        id: storageaccountdeploy
+        with:
+          scope: Subscription
+          SubscriptionID : Get-Sub
+          region: west us 2
+          template: ./arm-templates/storageaccount.json
+          parameters: ./arm-templates/storageaccount.parameters.json
+            #location = west us 2
+            #resourcegroupname = rg-githubaction
+          deploymentmode: incremental
+
+      - run: echo ${{steps.storageaccountdeploy.outputs}}
