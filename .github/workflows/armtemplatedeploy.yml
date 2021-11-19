@@ -39,4 +39,6 @@ jobs:
           subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
+            storageaccountname = "m2storageaccount1983"
+            location = 'East us 2'
           deploymentmode: incremental
