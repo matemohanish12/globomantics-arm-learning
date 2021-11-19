@@ -2,7 +2,6 @@
 
 name: armTemplateDeployment
 
-
 on:
   push:
     branches:
@@ -27,10 +26,10 @@ jobs:
         with:
           scope: Subscription
           SubscriptionID : Get-Sub
-          region: west us 2
+          region: "west us 2"
           template: ./arm-templates/resourcegroup.json
           parameters:   
-            location = west us 2
+            location = "west us 2"
             resourcegroupname = rg-githubaction
           deploymentname: rg-githubaction
 
@@ -40,7 +39,7 @@ jobs:
         with:
           scope: Subscription
           SubscriptionID : Get-Sub
-          region: west us 2
+          region: "west us 2"
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
             #location = west us 2
