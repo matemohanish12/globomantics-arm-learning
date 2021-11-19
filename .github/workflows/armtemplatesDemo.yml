@@ -20,7 +20,7 @@ jobs:
           creds : ${{secret.Azure_Credentials}}
 
       - name: Deploy Azure Resource Group 
-        uses: Azure/arm-deploy@v1
+      - uses: Azure/arm-deploy@v1
         with:
           scope: Subscription
           SubscriptionID : Get-Sub
