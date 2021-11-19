@@ -35,7 +35,7 @@ jobs:
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
-          resourcegroupname: rg-githubaction
+          resourcegroupname: rg-githubactions
           subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
