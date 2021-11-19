@@ -13,7 +13,8 @@ jobs:
     steps:
       - uses : actions/checkout@v2   
 
-      - name : azure login
-        uses : Azure/login@V1
-        with:
+      - name : Azure Login
+        uses : Azure/login@v1
+        with :
           creds: ${{ secrets.AZURE_CREDENTIALS}}
+
