@@ -17,7 +17,7 @@ jobs:
       - name : azure login
       - uses : azure/login@v1
         with : 
-          creds : ${{secret.Azure_Credentials}}
+          creds : ${{secret.AZURE_CREDENTIALS}}
 
       - name: Deploy Azure Resource Group 
       - uses: Azure/arm-deploy@v1
