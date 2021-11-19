@@ -40,5 +40,5 @@ jobs:
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
             storageaccountname=m2storageaccot1983
-            location='East us 2'
+            location="East US 2"
           deploymentmode: incremental
