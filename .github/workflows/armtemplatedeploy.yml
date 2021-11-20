@@ -10,8 +10,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
-  resource_group_name: rg-githubactions
-  location: West US 2
   subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
 
 
@@ -56,6 +54,7 @@ jobs:
           parameters: 
             storageaccountname=m2storageaccot1984
             location="${{env.location}}"
+            sku=Standard_LRS
           deploymentmode: incremental
       
       - name: Deploy Ubuntu VM
@@ -111,6 +110,7 @@ jobs:
           parameters: 
             storageaccountname=m2storageaccot1985
             location="${{env.location}}"
+            sku=Standard_LRS
           deploymentmode: incremental
       
       - name: Deploy Ubuntu VM
