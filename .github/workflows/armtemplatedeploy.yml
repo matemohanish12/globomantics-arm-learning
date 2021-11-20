@@ -47,7 +47,7 @@ jobs:
             location="East US 2"
           deploymentmode: incremental
       
-      - name: Deploy storageaccount globostorage
+      - name: Deploy Ubuntu VM
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
