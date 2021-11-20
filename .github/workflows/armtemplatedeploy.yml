@@ -10,8 +10,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
-  resource_group_name: rg-gitgubacions
-  location: "West US 2"
+  resource_group_name: rg-githubactions
+  location: West US 2
   subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
 jobs:
   armDeploy:
@@ -30,11 +30,11 @@ jobs:
         with:
           scope: subscription
           subscriptionid: ${{env.subscriptionid}}
-          region: ${{env.location}}
+          region: "${{env.location}}"
           template: ./arm-templates/resourcegroup.json
           parameters: 
             resourcegroupname=${{env.resource_group_name}}
-            location=${{env.location}}
+            location="${{env.location}}"
           deploymentname: ${{env.resource_group_name}}
 
 
@@ -48,7 +48,7 @@ jobs:
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
             storageaccountname=m2storageaccot1983
-            location=${{env.location}}
+            location="${{env.location}}"
           deploymentmode: incremental
       
       - name: Deploy Ubuntu VM
@@ -60,6 +60,6 @@ jobs:
           template: ./arm-templates/virtualmachine.json
           parameters: 
              adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
-             location=${{env.location}}
+             location="${{env.location}}"
           deploymentmode: incremental
       
