@@ -46,4 +46,16 @@ jobs:
             storageaccountname=m2storageaccot1983
             location="East US 2"
           deploymentmode: incremental
-      - run: echo ${{steps.storageaccountdeploy.outputs.BlobURI}}
+      
+      - name: Deploy storageaccount globostorage
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourcegroupname: rg-githubactions
+          subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
+          template: ./arm-templates/virtualmachine.json
+          parameters: 
+             adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
+             location="WEST US 2"
+          deploymentmode: incremental
+      
