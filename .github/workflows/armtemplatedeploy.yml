@@ -47,7 +47,7 @@ jobs:
           subscriptionid: ${{env.subscriptionid}}
           template: ./arm-templates/storageaccount.json
           parameters: ./arm-templates/storageaccount.parameters.json
-            storageaccountname=m2storageaccot1983
+            storageaccountname=m2storageaccot1984
             location="${{env.location}}"
           deploymentmode: incremental
       
