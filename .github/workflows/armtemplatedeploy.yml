@@ -42,85 +42,87 @@ jobs:
             location="${{env.location}}"
           deploymentname: ${{env.resource_group_name}}
 
-
-      - name: Deploy storageaccount globostorage
-        id: storageaccountdeploy
+      
+      - name: Deploy function app
+        id: functionaccountdeploy
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
           resourcegroupname: ${{env.resource_group_name}}
           subscriptionid: ${{env.subscriptionid}}
-          template: ./arm-templates/storageaccount.json
+          template: ./arm-templates/Create-Functions.json
           parameters: 
-            storageaccountname=m2storageaccot1984
             location="${{env.location}}"
             sku=Standard_LRS
+            appInsightsLocation="${{env.location}}"
+            appName=functionsappwithcicd
+            runtime=powershell
           deploymentmode: incremental
       
-      - name: Deploy Ubuntu VM
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourcegroupname: ${{env.resource_group_name}}
-          subscriptionid: ${{env.subscriptionid}}
-          template: ./arm-templates/virtualmachine.json
-          parameters: 
-             adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
-             location="${{env.location}}"
-          deploymentmode: incremental
+      # - name: Deploy Ubuntu VM
+      #   uses: Azure/arm-deploy@v1
+      #   with:
+      #     scope: resourcegroup
+      #     resourcegroupname: ${{env.resource_group_name}}
+      #     subscriptionid: ${{env.subscriptionid}}
+      #     template: ./arm-templates/virtualmachine.json
+      #     parameters: 
+      #        adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
+      #        location="${{env.location}}"
+      #     deploymentmode: incremental
 
-  armDeployProduction:
-    name: Deply to Production
-    runs-on: ubuntu-latest
-    env:
-      resource_group_name: rg-Prodgithubactions
-      location: East US
-    environment:
-      name:production
-    needs: armDeployStaginig
-    steps:
-      - uses : actions/checkout@v2   
+  # armDeployProduction:
+  #   name: Deply to Production
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     resource_group_name: rg-Prodgithubactions
+  #     location: East US
+  #   environment:
+  #     name:production
+  #   needs: armDeployStaginig
+  #   steps:
+  #     - uses : actions/checkout@v2   
 
-      - name : Azure Login
-        uses : Azure/login@v1
-        with :
-          creds: ${{ secrets.AZURE_CREDENTIALS}}
+  #     - name : Azure Login
+  #       uses : Azure/login@v1
+  #       with :
+  #         creds: ${{ secrets.AZURE_CREDENTIALS}}
       
-      - name: Deploy Resource Group ${{env.resource_group_name}}
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: subscription
-          subscriptionid: ${{env.subscriptionid}}
-          region: "${{env.location}}"
-          template: ./arm-templates/resourcegroup.json
-          parameters: 
-            resourcegroupname=${{env.resource_group_name}}
-            location="${{env.location}}"
-          deploymentname: ${{env.resource_group_name}}
+  #     - name: Deploy Resource Group ${{env.resource_group_name}}
+  #       uses: Azure/arm-deploy@v1
+  #       with:
+  #         scope: subscription
+  #         subscriptionid: ${{env.subscriptionid}}
+  #         region: "${{env.location}}"
+  #         template: ./arm-templates/resourcegroup.json
+  #         parameters: 
+  #           resourcegroupname=${{env.resource_group_name}}
+  #           location="${{env.location}}"
+  #         deploymentname: ${{env.resource_group_name}}
 
 
-      - name: Deploy storageaccount globostorage
-        id: storageaccountdeploy
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourcegroupname: ${{env.resource_group_name}}
-          subscriptionid: ${{env.subscriptionid}}
-          template: ./arm-templates/storageaccount.json
-          parameters: 
-            storageaccountname=m2storageaccot1985
-            location="${{env.location}}"
-            sku=Standard_LRS
-          deploymentmode: incremental
+  #     - name: Deploy storageaccount globostorage
+  #       id: storageaccountdeploy
+  #       uses: Azure/arm-deploy@v1
+  #       with:
+  #         scope: resourcegroup
+  #         resourcegroupname: ${{env.resource_group_name}}
+  #         subscriptionid: ${{env.subscriptionid}}
+  #         template: ./arm-templates/storageaccount.json
+  #         parameters: 
+  #           storageaccountname=m2storageaccot1985
+  #           location="${{env.location}}"
+  #           sku=Standard_LRS
+  #         deploymentmode: incremental
       
-      - name: Deploy Ubuntu VM
-        uses: Azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          resourcegroupname: ${{env.resource_group_name}}
-          subscriptionid: ${{env.subscriptionid}}
-          template: ./arm-templates/virtualmachine.json
-          parameters: 
-             adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
-             location="${{env.location}}"
-          deploymentmode: incremental      
+  #     - name: Deploy Ubuntu VM
+  #       uses: Azure/arm-deploy@v1
+  #       with:
+  #         scope: resourcegroup
+  #         resourcegroupname: ${{env.resource_group_name}}
+  #         subscriptionid: ${{env.subscriptionid}}
+  #         template: ./arm-templates/virtualmachine.json
+  #         parameters: 
+  #            adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
+  #            location="${{env.location}}"
+  #         deploymentmode: incremental      
