@@ -53,7 +53,7 @@ jobs:
           template: ./arm-templates/Create-Functions.json
           parameters: 
             location="${{env.location}}"
-            sku=Standard_LRS
+            storageAccountType=Standard_LRS
             appInsightsLocation="${{env.location}}"
             appName=functionsappwithcicd
             runtime=powershell
