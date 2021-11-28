@@ -57,7 +57,7 @@ jobs:
             windowsversion= 2016-Datacenter
             instancecount=5,
             adminusername=m2admin
-            adminpassword=${{env.UBUNTU_ADMIN_PWD}}
+            adminpassword=${{env.password}}
             vmssname=zeenews
           deploymentmode: complete
       
