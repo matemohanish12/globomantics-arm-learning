@@ -154,7 +154,7 @@
                         "name": "[variables('bepoolname')]"
                     }
                 ],
-                "inboundNatRules": [
+                "inboundNatpools": [
                     {
                         "name": "[variables('natpoolname')]",
                         "properties": {
