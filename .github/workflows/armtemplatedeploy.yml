@@ -53,7 +53,7 @@ jobs:
           parameters: 
             location="${{env.location}}"
             vmsku=Standard_A1_v2
-            windowsosversion= 2016-Datacenter
+            windowsosversion=2016-Datacenter
             instancecount=5,
             adminusername=m2admin
             adminpassword=${{secrets.UBUNTU_ADMIN_PWD}}
