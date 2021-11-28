@@ -43,21 +43,23 @@ jobs:
           deploymentname: ${{env.resource_group_name}}
 
       
-      - name: Deploy function app
-        id: functionaccountdeploy
+      - name: Deploy vmss
+        id: vmss
         uses: Azure/arm-deploy@v1
         with:
           scope: resourcegroup
           resourcegroupname: ${{env.resource_group_name}}
           subscriptionid: ${{env.subscriptionid}}
-          template: ./arm-templates/Create-Functions.json
+          template: ./arm-templates/VMSS/vmss.json
           parameters: 
             location="${{env.location}}"
-            storageAccountType=Standard_LRS
-            appInsightsLocation="${{env.location}}"
-            appName=functionsappwithcicd
-            runtime=powershell
-          deploymentmode: incremental
+            vmsku=Standard_A1_v2
+            windowsversion= 2016-Datacenter
+            instancecount=5,
+            adminusername=m2admin
+            adminpassword=${{secret.UBUNTU_ADMIN_PWD}}
+            vmssname=zeenews
+          deploymentmode: complete
       
       # - name: Deploy Ubuntu VM
       #   uses: Azure/arm-deploy@v1
