@@ -11,7 +11,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
   subscriptionid: b69c2a11-bd8a-4349-b9d9-1c55bd839199
-
+  password: ${{secret.UBUNTU_ADMIN_PWD}}
 
 jobs:
   armDeployStaginig:
@@ -57,7 +57,7 @@ jobs:
             windowsversion= 2016-Datacenter
             instancecount=5,
             adminusername=m2admin
-            adminpassword=${{secret.UBUNTU_ADMIN_PWD}}
+            adminpassword=${{env.UBUNTU_ADMIN_PWD}}
             vmssname=zeenews
           deploymentmode: complete
       
